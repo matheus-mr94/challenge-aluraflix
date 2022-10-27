@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class Video {
 
     @Id
@@ -24,5 +24,11 @@ public class Video {
         this.title = title;
         this.description = description;
         this.url = url;
+    }
+
+    public void update(VideoUpdateForm form) {
+        this.title = form.getTitle();
+        this.description = form.getDescription();
+        this.url = form.getUrl();
     }
 }

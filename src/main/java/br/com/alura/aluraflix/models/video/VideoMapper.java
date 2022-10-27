@@ -9,7 +9,8 @@ public class VideoMapper {
         return new VideoView(video.getTitle(), video.getDescription(), video.getUrl());
     }
 
-    public Video toEntity(VideoForm form) {
+    public Video toEntity(Form form) {
         return new Video(form.getTitle(), form.getDescription(), form.getUrl());
     }
+
 }

@@ -5,9 +5,9 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
-@Getter
 @AllArgsConstructor
-public class VideoForm implements Form {
+@Getter
+public class VideoUpdateForm implements Form {
 
     @NotBlank
     private String title;
@@ -15,5 +15,4 @@ public class VideoForm implements Form {
     private String description;
     @NotBlank
     private String url;
-
 }

@@ -1,15 +1,9 @@
 package br.com.alura.aluraflix.models.video;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class VideoService {
@@ -25,13 +19,22 @@ public class VideoService {
         videoRepository.save(video);
     }
 
-    public VideoView findById(Long id) {
-        Video video = videoRepository.findById(id)
-                .orElseThrow(VideoNotFoundException::new));
+    public VideoView findById(Long id) throws VideoNotFoundException {
+        Video video = videoRepository.findById(id).orElseThrow(VideoNotFoundException::new);
         return videoMapper.toView(video);
     }
 
     public List<Video> findAll() {
         return videoRepository.findAll();
+    }
+
+    public void updateVideo(Long id, VideoUpdateForm form) throws VideoNotFoundException {
+        Video video = videoRepository.findById(id).orElseThrow(VideoNotFoundException::new);
+        video.update(form);
+    }
+
+    public void removeVideo(Long id) throws VideoNotFoundException {
+        Video video = videoRepository.findById(id).orElseThrow(VideoNotFoundException::new);
+        videoRepository.delete(video);
     }
 }
