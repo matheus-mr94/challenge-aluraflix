@@ -1,5 +1,6 @@
 package br.com.alura.aluraflix.models.video;
 
+import br.com.alura.aluraflix.models.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,5 +16,6 @@ public class VideoForm implements Form {
     private String description;
     @NotBlank
     private String url;
+    private Category category;
 
 }
