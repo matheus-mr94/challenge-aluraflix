@@ -1,4 +1,4 @@
-package br.com.alura.aluraflix.models.video;
+package br.com.alura.aluraflix.utils.validations;
 
 public class ValidationErrorDTO {
 
