@@ -1,5 +1,6 @@
 package br.com.alura.aluraflix.models.video;
 
+import br.com.alura.aluraflix.utils.validations.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class VideoController {
       public ResponseEntity<VideoView> findById(@PathVariable Long id){
             try{
                  return ResponseEntity.ok(videoService.findById(id));
-            } catch (VideoNotFoundException ex) {
+            } catch (NotFoundException ex) {
                   throw new ResponseStatusException(NOT_FOUND);
             }
       }
@@ -41,7 +42,7 @@ public class VideoController {
             try {
                   videoService.updateVideo(id, updateForm);
                   return ResponseEntity.ok(new VideoView(updateForm.getTitle(), updateForm.getDescription(), updateForm.getUrl()));
-            } catch (VideoNotFoundException ex) {
+            } catch (NotFoundException ex) {
                   throw new ResponseStatusException(BAD_REQUEST);
             }
       }
@@ -58,7 +59,7 @@ public class VideoController {
             try {
                   videoService.removeVideo(id);
                   return ResponseEntity.ok().build();
-            } catch (VideoNotFoundException ex) {
+            } catch (NotFoundException ex) {
                   throw new ResponseStatusException(BAD_REQUEST);
             }
       }
