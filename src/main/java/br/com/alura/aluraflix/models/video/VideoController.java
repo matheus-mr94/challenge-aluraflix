@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -47,11 +48,10 @@ public class VideoController {
       }
 
       @PostMapping("/video")
-      public ResponseEntity<VideoView> newVideo(@RequestBody @Valid VideoForm form) {
-            videoService.saveVideo(form);
-            URI location = URI.create("/videos");
-            return ResponseEntity.created(location)
-                    .body(new VideoView(form.getTitle(), form.getDescription(), form.getUrl(), form.getCategoryId()));
+      public ResponseEntity<Video> newVideo(@RequestBody @Valid VideoForm videoForm, UriComponentsBuilder uriBuilder) {
+            Video video = videoService.saveVideo(videoForm);
+            URI location = uriBuilder.path("/videos/{id}").buildAndExpand(video.getId()).toUri();
+            return ResponseEntity.created(location).body(video);
       }
 
       @DeleteMapping("/video/{id}")

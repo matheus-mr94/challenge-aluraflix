@@ -1,6 +1,7 @@
 package br.com.alura.aluraflix.models.video;
 
 import br.com.alura.aluraflix.models.category.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ public class Video {
     private String description;
     private String url;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
 

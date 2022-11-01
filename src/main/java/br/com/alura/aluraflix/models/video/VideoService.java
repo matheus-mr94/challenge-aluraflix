@@ -16,14 +16,14 @@ public class VideoService {
     private CategoryRepository categoryRepository;
     private VideoMapper videoMapper;
 
-    public void saveVideo(VideoForm form) {
+    public Video saveVideo(VideoForm form) {
         if (form.getCategory() == null) {
             Category category = categoryRepository.findById(1L).get();
             form.setCategory(category);
         }
 
         Video video = videoMapper.toEntity(form);
-        videoRepository.save(video);
+        return videoRepository.save(video);
     }
 
     public VideoView findById(Long id) throws NotFoundException {
