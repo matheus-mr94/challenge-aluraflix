@@ -6,11 +6,10 @@ import org.springframework.stereotype.Component;
 public class VideoMapper {
 
     public VideoView toView(Video video) {
-        return new VideoView(video.getTitle(), video.getDescription(), video.getUrl());
+        return new VideoView(video.getTitle(), video.getDescription(), video.getUrl(), video.getCategoryId());
     }
 
     public Video toEntity(Form form) {
         return new Video(form.getTitle(), form.getDescription(), form.getUrl(), form.getCategory());
     }
-
 }

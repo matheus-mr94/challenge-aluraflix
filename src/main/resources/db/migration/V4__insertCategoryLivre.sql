@@ -1,0 +1,1 @@
+INSERT INTO Category (id, title, color) VALUES (1, 'LIVRE', 'AZUL');

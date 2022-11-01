@@ -6,8 +6,8 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class VideoUpdateForm implements Form {
 
     @NotBlank
@@ -18,4 +18,7 @@ public class VideoUpdateForm implements Form {
     private String url;
     private Category category;
 
+    public Long getCategoryId() {
+        return category.getId();
+    }
 }

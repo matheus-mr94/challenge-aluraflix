@@ -8,5 +8,4 @@ public interface Form {
     String getDescription();
     String getUrl();
     Category getCategory();
-
 }

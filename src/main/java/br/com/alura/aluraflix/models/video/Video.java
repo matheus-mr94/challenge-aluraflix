@@ -34,4 +34,8 @@ public class Video {
         this.url = form.getUrl();
         this.category = form.getCategory();
     }
+
+    public Long getCategoryId() {
+        return category.getId();
+    }
 }

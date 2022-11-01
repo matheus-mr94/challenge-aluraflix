@@ -18,4 +18,11 @@ public class VideoForm implements Form {
     private String url;
     private Category category;
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Long getCategoryId() {
+        return category.getId();
+    }
 }

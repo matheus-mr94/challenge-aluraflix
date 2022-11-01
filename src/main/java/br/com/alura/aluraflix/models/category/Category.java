@@ -2,6 +2,7 @@ package br.com.alura.aluraflix.models.category;
 
 import br.com.alura.aluraflix.models.video.Video;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@NoArgsConstructor
 public class Category {
 
     @Id

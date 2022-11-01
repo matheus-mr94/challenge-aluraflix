@@ -1,21 +1,27 @@
 package br.com.alura.aluraflix.models.video;
 
+import br.com.alura.aluraflix.models.category.Category;
+import br.com.alura.aluraflix.models.category.CategoryRepository;
 import br.com.alura.aluraflix.utils.validations.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class VideoService {
 
-    @Autowired
     private VideoRepository videoRepository;
-
-    @Autowired
-    VideoMapper videoMapper;
+    private CategoryRepository categoryRepository;
+    private VideoMapper videoMapper;
 
     public void saveVideo(VideoForm form) {
+        if (form.getCategory() == null) {
+            Category category = categoryRepository.findById(1L).get();
+            form.setCategory(category);
+        }
+
         Video video = videoMapper.toEntity(form);
         videoRepository.save(video);
     }

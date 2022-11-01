@@ -1,6 +1,7 @@
 package br.com.alura.aluraflix.models.video;
 
 import br.com.alura.aluraflix.utils.validations.NotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,11 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@AllArgsConstructor
 @RestController
 public class VideoController {
 
       private VideoService videoService;
-
-      public VideoController(VideoService videoService) {
-            this.videoService = videoService;
-      }
 
       @GetMapping("/videos")
       public ResponseEntity<List<Video>> findAll() {
@@ -41,17 +39,19 @@ public class VideoController {
       public ResponseEntity<VideoView> update(@PathVariable Long id, @RequestBody @Valid VideoUpdateForm updateForm) {
             try {
                   videoService.updateVideo(id, updateForm);
-                  return ResponseEntity.ok(new VideoView(updateForm.getTitle(), updateForm.getDescription(), updateForm.getUrl()));
+                  return ResponseEntity
+                          .ok(new VideoView(updateForm.getTitle(), updateForm.getDescription(), updateForm.getUrl(), updateForm.getCategoryId()));
             } catch (NotFoundException ex) {
                   throw new ResponseStatusException(BAD_REQUEST);
             }
       }
 
       @PostMapping("/video")
-      public ResponseEntity<VideoView> newVideo(@RequestBody @Valid VideoForm videoForm) {
-            videoService.saveVideo(videoForm);
+      public ResponseEntity<VideoView> newVideo(@RequestBody @Valid VideoForm form) {
+            videoService.saveVideo(form);
             URI location = URI.create("/videos");
-            return ResponseEntity.created(location).body(new VideoView(videoForm.getTitle(), videoForm.getDescription(), videoForm.getUrl()));
+            return ResponseEntity.created(location)
+                    .body(new VideoView(form.getTitle(), form.getDescription(), form.getUrl(), form.getCategoryId()));
       }
 
       @DeleteMapping("/video/{id}")
