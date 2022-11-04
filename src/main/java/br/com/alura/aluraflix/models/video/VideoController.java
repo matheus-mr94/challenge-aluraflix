@@ -35,6 +35,11 @@ public class VideoController {
             }
       }
 
+      @GetMapping("/videos/")
+      public ResponseEntity<List<VideoView>> findByTitle(@RequestParam String title) {
+            return ResponseEntity.ok(videoService.findByTitle(title));
+      }
+
       @Transactional
       @PutMapping("/video/{id}")
       public ResponseEntity<VideoView> update(@PathVariable Long id, @RequestBody @Valid VideoUpdateForm updateForm) {

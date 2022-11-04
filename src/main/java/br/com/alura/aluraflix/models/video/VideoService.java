@@ -6,6 +6,7 @@ import br.com.alura.aluraflix.utils.validations.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,5 +44,15 @@ public class VideoService {
     public void removeVideo(Long id) throws NotFoundException {
         Video video = videoRepository.findById(id).orElseThrow(NotFoundException::new);
         videoRepository.delete(video);
+    }
+
+    public List<VideoView> findByTitle(String title) {
+        List<Video> videosByTitle = videoRepository.findByTitleContainingIgnoreCase(title);
+        List<VideoView> videos = new ArrayList<>();
+        videosByTitle.forEach(video -> {
+            VideoView videoView = videoMapper.toView(video);
+            videos.add(videoView);
+        });
+        return  videos;
     }
 }
