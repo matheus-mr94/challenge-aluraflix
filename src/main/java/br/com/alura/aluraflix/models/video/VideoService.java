@@ -13,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class VideoService {
 
-    private VideoRepository videoRepository;
-    private CategoryRepository categoryRepository;
-    private VideoMapper videoMapper;
+    private final VideoRepository videoRepository;
+    private final CategoryRepository categoryRepository;
+    private final VideoMapper videoMapper;
 
     public Video saveVideo(VideoForm form) {
         if (form.getCategory() == null) {
