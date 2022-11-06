@@ -27,7 +27,7 @@ public class VideoService {
         return videoRepository.save(video);
     }
 
-    public VideoView findById(Long id) throws NotFoundException {
+    public VideoView findById(Long id) {
         Video video = videoRepository.findById(id).orElseThrow(NotFoundException::new);
         return videoMapper.toView(video);
     }
@@ -36,12 +36,12 @@ public class VideoService {
         return videoRepository.findAll();
     }
 
-    public void updateVideo(Long id, VideoUpdateForm form) throws NotFoundException {
+    public void updateVideo(Long id, VideoUpdateForm form) {
         Video video = videoRepository.findById(id).orElseThrow(NotFoundException::new);
         video.update(form);
     }
 
-    public void removeVideo(Long id) throws NotFoundException {
+    public void removeVideo(Long id) {
         Video video = videoRepository.findById(id).orElseThrow(NotFoundException::new);
         videoRepository.delete(video);
     }
