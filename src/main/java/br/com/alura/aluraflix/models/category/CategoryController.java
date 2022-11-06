@@ -64,4 +64,10 @@ public class CategoryController {
         }
         throw new ResponseStatusException(BAD_REQUEST, "categoria 1 não pode ser editada.");
     }
+
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity<Void> removeCategory(@PathVariable Long id) {
+        categoryService.removeCategory(id);
+        return ResponseEntity.ok().build();
+    }
 }

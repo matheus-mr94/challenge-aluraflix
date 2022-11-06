@@ -38,4 +38,9 @@ public class CategoryService {
         category.update(form);
         return category;
     }
+
+    public void removeCategory(Long id) {
+        Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+        categoryRepository.delete(category);
+    }
 }
