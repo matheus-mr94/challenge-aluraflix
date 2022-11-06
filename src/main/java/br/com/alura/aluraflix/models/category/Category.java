@@ -23,7 +23,12 @@ public class Category {
     List<Video> videos;
 
     public Category(String title, String color) {
-        this.title = title;
-        this.color = color;
+        this.title = title.toUpperCase();
+        this.color = color.toUpperCase();
+    }
+
+    public void update(CategoryForm form) {
+        this.title = form.getTitle().toUpperCase();
+        this.color = form.getColor().toUpperCase();
     }
 }

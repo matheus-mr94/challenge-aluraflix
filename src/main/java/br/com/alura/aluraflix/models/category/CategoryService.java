@@ -26,4 +26,16 @@ public class CategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
         return categoryMapper.toView(category);
     }
+
+    public Category saveCategory(CategoryForm form) {
+        Category category = categoryMapper.toEntity(form);
+        categoryRepository.save(category);
+        return category;
+    }
+
+    public Category updateCategory(Long id, CategoryForm form) {
+        Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+        category.update(form);
+        return category;
+    }
 }

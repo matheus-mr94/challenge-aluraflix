@@ -44,11 +44,12 @@ public class VideoController {
       @PutMapping("/video/{id}")
       public ResponseEntity<VideoView> update(@PathVariable Long id, @RequestBody @Valid VideoUpdateForm updateForm) {
             try {
-                  videoService.updateVideo(id, updateForm);
-                  return ResponseEntity
-                          .ok(new VideoView(updateForm.getTitle(), updateForm.getDescription(), updateForm.getUrl(), updateForm.getCategoryId()));
+                  Video video = videoService.updateVideo(id, updateForm);
+                  VideoView body = new VideoView(video.getTitle(), video.getDescription(),
+                          video.getUrl(), video.getCategoryId());
+                  return ResponseEntity.ok(body);
             } catch (NotFoundException ex) {
-                  throw new ResponseStatusException(BAD_REQUEST);
+                  throw new ResponseStatusException(NOT_FOUND);
             }
       }
 

@@ -16,4 +16,8 @@ public class CategoryMapper {
     public CategorySimpleView toView(Category category) {
         return new CategorySimpleView(category.getTitle(), category.getColor());
     }
+
+    public Category toEntity(CategoryForm form) {
+        return new Category(form.getTitle(), form.getColor());
+    }
 }

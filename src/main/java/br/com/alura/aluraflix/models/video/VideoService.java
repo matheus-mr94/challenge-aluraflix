@@ -36,9 +36,10 @@ public class VideoService {
         return videoRepository.findAll();
     }
 
-    public void updateVideo(Long id, VideoUpdateForm form) {
+    public Video updateVideo(Long id, VideoUpdateForm form) {
         Video video = videoRepository.findById(id).orElseThrow(NotFoundException::new);
         video.update(form);
+        return video;
     }
 
     public void removeVideo(Long id) {

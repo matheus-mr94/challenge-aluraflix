@@ -21,8 +21,4 @@ public class VideoForm implements Form {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-    public Long getCategoryId() {
-        return category.getId();
-    }
 }
