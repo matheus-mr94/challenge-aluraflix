@@ -56,4 +56,9 @@ public class VideoService {
         });
         return  videos;
     }
+
+    public List<VideoView> findByCategoryId(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(NotFoundException::new);
+        return videoRepository.findByCategory(category);
+    }
 }

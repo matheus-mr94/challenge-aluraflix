@@ -35,6 +35,15 @@ public class VideoController {
             }
       }
 
+      @GetMapping("/videos/category/{categoryId}")
+      public ResponseEntity<List<VideoView>> findByCategoryId(@PathVariable Long categoryId){
+            try{
+                 return ResponseEntity.ok(videoService.findByCategoryId(categoryId));
+            } catch (NotFoundException ex) {
+                  throw new ResponseStatusException(NOT_FOUND);
+            }
+      }
+
       @GetMapping("/videos/")
       public ResponseEntity<List<VideoView>> findByTitle(@RequestParam String title) {
             return ResponseEntity.ok(videoService.findByTitle(title));
