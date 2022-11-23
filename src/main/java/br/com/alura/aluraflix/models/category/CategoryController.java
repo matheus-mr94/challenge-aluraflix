@@ -19,17 +19,18 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @AllArgsConstructor
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> findAll() {
-        return ResponseEntity.ok(categoryService.findAll());
+        return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     @GetMapping("/categories/{id}/full")
     public ResponseEntity<CategoryFullView> findFullViewById(@PathVariable Long id) {
         try{
-            return ResponseEntity.ok(categoryService.findFullViewById(id));
+            Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+            return ResponseEntity.ok(new CategoryFullView(category));
         } catch (NotFoundException ex) {
             throw new ResponseStatusException(NOT_FOUND);
         }
@@ -38,7 +39,8 @@ public class CategoryController {
     @GetMapping("/categories/{id}/simple")
     public ResponseEntity<CategorySimpleView> findSimpleViewById(@PathVariable Long id) {
         try{
-            return ResponseEntity.ok(categoryService.findSimpleViewById(id));
+            Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+            return ResponseEntity.ok(new CategorySimpleView(category));
         } catch (NotFoundException ex) {
             throw new ResponseStatusException(NOT_FOUND);
         }
@@ -46,7 +48,8 @@ public class CategoryController {
 
     @PostMapping("/category")
     public ResponseEntity<Category> newCategory(@RequestBody @Valid CategoryForm form, UriComponentsBuilder uriBuilder) {
-        Category category = categoryService.saveCategory(form);
+        Category category = form.toEntity(form);
+        categoryRepository.save(category);
         URI location = uriBuilder.path("/videos/{id}").buildAndExpand(category.getId()).toUri();
         return ResponseEntity.created(location).body(category);
     }
@@ -56,7 +59,8 @@ public class CategoryController {
     public ResponseEntity<CategorySimpleView> update(@PathVariable Long id, @RequestBody CategoryForm form) {
         try {
             if(id != 1) {
-                Category category = categoryService.updateCategory(id, form);
+                Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+                category.update(form);
                 return ResponseEntity.ok(new CategorySimpleView(category.getTitle(), category.getColor()));
             }
         } catch (NotFoundException ex) {
@@ -67,7 +71,8 @@ public class CategoryController {
 
     @DeleteMapping("/category/{id}")
     public ResponseEntity<Void> removeCategory(@PathVariable Long id) {
-        categoryService.removeCategory(id);
+        Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+        categoryRepository.delete(category);
         return ResponseEntity.ok().build();
     }
 }

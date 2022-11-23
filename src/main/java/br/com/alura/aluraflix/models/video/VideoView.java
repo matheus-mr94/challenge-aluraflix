@@ -3,6 +3,8 @@ package br.com.alura.aluraflix.models.video;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class VideoView {
@@ -17,5 +19,9 @@ public class VideoView {
         this.description = video.getDescription();
         this.url = video.getUrl();
         this.categoryId = video.getCategoryId();
+    }
+
+    public static List<VideoView> toVideoViews(List<Video> videos) {
+        return videos.stream().map(VideoView::new).toList();
     }
 }

@@ -9,4 +9,8 @@ public class CategoryForm {
 
     private String title;
     private String color;
+
+    public Category toEntity(CategoryForm form) {
+        return new Category(form.getTitle(), form.getColor());
+    }
 }

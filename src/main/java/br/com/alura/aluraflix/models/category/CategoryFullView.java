@@ -6,6 +6,8 @@ import lombok.Getter;
 
 import java.util.List;
 
+import static br.com.alura.aluraflix.models.video.VideoView.toVideoViews;
+
 @Getter
 @AllArgsConstructor
 public class CategoryFullView {
@@ -14,4 +16,9 @@ public class CategoryFullView {
     private String color;
     private List<VideoView> videos;
 
+    public CategoryFullView(Category category) {
+        this.title = category.getTitle();
+        this.color = category.getColor();
+        this.videos = toVideoViews(category.getVideos());
+    }
 }

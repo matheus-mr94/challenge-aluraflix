@@ -21,4 +21,8 @@ public class VideoForm implements Form {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Video toEntity(VideoForm videoForm) {
+        return new Video(videoForm.getTitle(), videoForm.description, videoForm.getUrl(), videoForm.getCategory());
+    }
 }

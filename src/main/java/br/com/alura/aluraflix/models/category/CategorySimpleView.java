@@ -10,4 +10,8 @@ public class CategorySimpleView {
     private String title;
     private String color;
 
+    public CategorySimpleView(Category category) {
+        this.title = category.getTitle();
+        this.color = category.getColor();
+    }
 }
